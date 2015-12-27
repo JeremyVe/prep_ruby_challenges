@@ -1,24 +1,40 @@
 
-def overlap (array1, array2)
+def overlap (arr1, arr2)
+	x_overlap = false
+	y_overlap = false
 
-	x_second_square = array2[0][0]
+	if arr1[0][0] < arr2[0][0]
 
-	y_second_square = array2[0][1]
 
-	if (( x_second_square >= array1[0][0] ) && ( x_second_square < array1[1][0] ))
-		
-		if (( y_second_square >= array1[0][1] ) && ( y_second_square < array1[1][1] ))
-
-			puts "overlap = true my friend"
-		else
-			puts "overlap = false"
-
+		(arr2[0][0]..arr2[1][0]).each do |i|
+			if i.between?(arr1[0][0], arr1[1][0]-1)
+				x_overlap = true
+				break
+			end
 		end
+
+		(arr2[0][1]..arr2[1][1]).each do |i|
+			if i.between?(arr1[0][1], arr1[1][1]-1)
+				y_overlap = true
+				break
+			end
+		end
+
+		if x_overlap && y_overlap
+			puts "overlap !"
+
+		else
+			puts "no..."
+		end
+
+
 	else
 
-		puts "overlap = false"
-	end
 
+		overlap(arr2, arr1)
+
+
+	end
 
 end
 
@@ -27,4 +43,8 @@ overlap( [ [0,0],[3,3] ], [ [1,1],[4,5] ] )
 
 overlap( [ [0,0],[1,4] ], [ [1,1],[3,2] ] )
 
-overlap( [ [1,2],[5,3] ], [ [1,1],[3,5] ] )
+overlap( [ [1,1],[3,2] ], [ [0,0],[1,4] ] )
+
+overlap( [ [1,2],[5,3] ], [ [2,1],[3,5] ] )
+
+overlap( [ [1,2],[5,3] ], [ [2,1],[3,5] ] )
